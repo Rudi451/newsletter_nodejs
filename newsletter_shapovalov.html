@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<title>Newsletter Anmeldung</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+		<style>
+			* {
+				margin: 20;
+				padding: 20;
+			}
+
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 90vh;
+				font-family: 'Arial', sans-serif;
+				background-color: #11304bf7;
+			}
+
+			.container {
+				text-align: center;
+				padding: 20px;
+				border-radius: 10px;
+				background-color: aliceblue;
+				width: 300px;
+			}
+
+			.material-icons {
+				color: black;
+				font-size: 70px;
+			}
+
+			h2 {
+				margin-bottom: 20px;
+				color: var(--primary-color);
+			}
+
+			input {
+				padding: 10px;
+				margin-bottom: 20px;
+				border: 1px solid var(--input-border-color);
+				border-radius: 5px;
+				background-color: var(--input-background-color);
+			}
+
+			button {
+				width: 100%;
+				padding: 10px;
+				border: none;
+				border-radius: 5px;
+				background-color: var(--primary-color);
+				color: #ffffff;
+				font-size: 16px;
+				cursor: pointer;
+				transition: background-color 0.3s;
+			}
+
+			button:hover {
+				background-color: var(--button-hover-color);
+			}
+
+			:root {
+				--primary-color: #2c3e50; /* Dark Slate Gray */
+				--secondary-color: #ff6347; /* Tomato */
+				--background-color: #f7f7f7; /* Light Gray */
+				--input-background-color: #f9f9f9; /* Very Light Gray */
+				--input-border-color: #dcdcdc; /* Light Gray */
+				--button-hover-color: #34495e; /* Slightly lighter dark gray */
+			}
+		</style>
+	</head>
+	<body>
+		<form class="container" action="submit">
+			<i class="material-icons">&#xE151;</i>
+			<h2>Subscribe</h2>
+			<input type="email" placeholder="Enter your E-mail" />
+			<div id="massage"></div>
+			<button type="submit">Subscribe</button>
+		</form>
+		<script src="
+		https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js
+		"></script>
+		<script>
+			'use strict';
+			const form = document.querySelector('form');
+			const massage = document.querySelector('#massage');
+			let email_adresse = '';
+			// Eventlistener for form submit
+			form.addEventListener('submit', (event) => {
+				event.preventDefault();
+				email_adresse = document.querySelector('input').value;
+				// im event => input element mit Text 'Checken Sie Ihre Mail box um die E-mail Adresse ${email adresse} zu Bestätigen!', wenn es eine Fehler gibt, dann den Fehler im Text ausgeben
+				massage.innerHTML = `Loading...`;
+				document.querySelector('button').style.display = 'none';
+
+				// an den server Befehl geben und den Object, mit email senden
+				const email = {email: email_adresse};
+				axios
+					.post('http://localhost:7001/', email)
+					.then((params, response) => {
+						console.log('Params , response : ', params, response);
+						document.querySelector('input').setAttribute('disabled', true);
+						massage.innerHTML = `Checken Sie Ihre Mail box um die E-mail Adresse<b> ${email_adresse} </b>zu Bestätigen! <br> <span style="font-size: 12px;"> *dieses Fenster können Sie schließen</span>`;
+						massage.style.border = '2px solid green';
+					})
+					.catch((error) => {
+						if (error.response?.statusText) {
+							massage.innerHTML = `${error.response.statusText} <br><b> ${
+								// if(typeof error.response.data === 'object'){ error.response.data.errors[0].msg }else{ error.response.data}
+								typeof error.response.data === 'object' ? (error.response.data.error !== undefined ? error.response.data.errors[0].msg : error) : error.response.data
+							}</b>`;
+							massage.style.border = '2px solid red';
+						} else {
+							// massage.innerHTML = `${error.response.statusText} <br> ${error.response.data}`;
+							massage.innerHTML = error;
+							massage.style.border = '2px solid red';
+						}
+						console.log(error);
+					});
+			});
+		</script>
+	</body>
+</html>

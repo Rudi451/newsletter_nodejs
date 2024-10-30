@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<title>Newsletter Anmeldung</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+		<style>
+			* {
+				margin: 20;
+				padding: 20;
+			}
+
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 90vh;
+				font-family: 'Arial', sans-serif;
+				background-color: #11304bf7;
+			}
+
+			.container {
+				text-align: center;
+				padding: 20px;
+				border-radius: 10px;
+				background-color: aliceblue;
+				width: 300px;
+			}
+
+			.material-icons {
+				color: black;
+				font-size: 70px;
+			}
+
+			h2 {
+				margin-bottom: 20px;
+				color: var(--primary-color);
+			}
+
+			input {
+				padding: 10px;
+				margin-bottom: 20px;
+				border: 1px solid var(--input-border-color);
+				border-radius: 5px;
+				background-color: var(--input-background-color);
+			}
+
+			button {
+				width: 100%;
+				padding: 10px;
+				border: none;
+				border-radius: 5px;
+				background-color: var(--primary-color);
+				color: #ffffff;
+				font-size: 16px;
+				cursor: pointer;
+				transition: background-color 0.3s;
+			}
+
+			button:hover {
+				background-color: var(--button-hover-color);
+			}
+
+			:root {
+				--primary-color: #2c3e50; /* Dark Slate Gray */
+				--secondary-color: #ff6347; /* Tomato */
+				--background-color: #f7f7f7; /* Light Gray */
+				--input-background-color: #f9f9f9; /* Very Light Gray */
+				--input-border-color: #dcdcdc; /* Light Gray */
+				--button-hover-color: #34495e; /* Slightly lighter dark gray */
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<i class="material-icons">&#xE151;</i>
+			<h2>Subscribe</h2>
+			<input type="email" placeholder="Enter your E-mail" />
+			<button type="button">Subscribe</button>
+		</div>
+	</body>
+</html>
